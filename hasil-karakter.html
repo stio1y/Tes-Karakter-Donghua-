@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hasil Karakter Donghua</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap');
+    body {
+      font-family: 'Cinzel Decorative', cursive;
+      background: radial-gradient(circle at center, #0b0016, #000);
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+    .result-box {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 0 25px #9d4dff;
+      max-width: 800px;
+      margin: auto;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+    h1 {
+      font-size: 2.6rem;
+      color: #ffd700;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 8px #ffce00;
+    }
+    .detail {
+      font-size: 1.15rem;
+      margin-top: 1.2rem;
+      line-height: 1.8;
+      letter-spacing: 0.3px;
+      text-align: center;
+    }
+    .highlight {
+      color: #ff80ff;
+      font-weight: bold;
+    }
+    img.character-art {
+      margin-top: 1.8rem;
+      border-radius: 12px;
+      box-shadow: 0 0 30px #9900ff;
+      max-width: 100%;
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2.8rem;
+      flex-wrap: wrap;
+    }
+    .btn-action {
+      padding: 0.9rem 1.6rem;
+      font-size: 1rem;
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffcc00;
+      transition: transform 0.2s;
+    }
+    .btn-action:hover {
+      transform: scale(1.05);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="result-box" id="resultBox">
+    <h1>🌠 Karakter Donghua-mu 🌠</h1>
+    <div class="detail" id="output"></div>
+    <img id="imgKarakter" class="character-art" src="" alt="Karakter Donghua">
+    <div class="button-group">
+      <button class="btn-action" onclick="downloadPDF()">📄 Download PDF</button>
+      <button class="btn-action" onclick="bagikanHasil()">📤 Bagikan</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    const data = JSON.parse(localStorage.getItem("donghuaKarakter"));
+    const output = document.getElementById("output");
+    const img = document.getElementById("imgKarakter");
+
+    if (!data) {
+      output.innerHTML = `<p>Data tidak ditemukan. Silakan kembali ke halaman utama.</p>`;
+    } else {
+      let karakter = "Petarung Kultivator";
+      let sekte = "Sekolah Langit Hitam";
+      let gambar = "https://i.imgur.com/IM2fW9H.png";
+
+      if (data.gaya.includes("pil")) {
+        karakter = "Alkemis";
+        gambar = "https://i.imgur.com/EVYiHkt.png";
+      } else if (data.gaya.includes("racun")) {
+        karakter = "Master Racun";
+        gambar = "https://i.imgur.com/9gjLgcW.png";
+      } else if (data.gaya.includes("Strategi")) {
+        karakter = "Taktikus Ilusi";
+        gambar = "https://i.imgur.com/mnJzvGu.png";
+      }
+
+      if (data.sifat === "Bijak" && data.peran === "Support") sekte = "Sekte Kaca Roh";
+      else if (data.sifat === "Ambisius") sekte = "Sekolah Neraka Langit";
+      else if (data.elemen === "Petir") sekte = "Lembah Halilintar";
+      else if (data.elemen === "Cahaya") sekte = "Kuil Cahaya Abadi";
+
+      const deskripsi = `Kamu adalah seorang <span class='highlight'>${karakter}</span> yang memiliki afinitas terhadap elemen <span class='highlight'>${data.elemen}</span>. Asalmu dari <span class='highlight'>${sekte}</span>, sebuah tempat yang mewakili kekuatan dan warisan hebat. Kamu dikenal karena sifatmu yang <strong>${data.sifat.toLowerCase()}</strong>, memilih bertarung dengan gaya <em>${data.gaya.toLowerCase()}</em>, dan berperan sebagai seorang <strong>${data.peran}</strong> yang disegani. Dalam dunia kultivasi, kehadiranmu membawa harapan sekaligus ketakutan.`;
+
+      output.innerHTML = deskripsi;
+      img.src = gambar;
+    }
+
+    function downloadPDF() {
+      const element = document.getElementById("resultBox");
+      html2pdf().from(element).save(`Karakter-Donghua-${data?.elemen || 'hasil'}.pdf`);
+    }
+
+    function bagikanHasil() {
+      const text = `🌠 Karakter Donghua-ku:\n\nAku adalah ${data.elemen} - ${data.peran} dari ${data.tujuan}.\nLihat karaktermu juga di Tes Donghua ini!`;
+      const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tes Karakter Donghua Premium</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap');
+
+    body {
+      font-family: 'Cinzel Decorative', cursive;
+      background: #0b0016 url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+      background-blend-mode: overlay;
+      color: #eee4ff;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      color: #ffd700;
+      text-align: center;
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px #ffcc00, 0 0 30px #ffcc00;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(144, 0, 255, 0.3);
+      backdrop-filter: blur(4px);
+    }
+    label {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #d2bfff;
+    }
+    select, button {
+      padding: 0.7rem;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      background-color: #2a004d;
+      color: #fff;
+      box-shadow: inset 0 0 10px #9933ff;
+    }
+    button {
+      background: linear-gradient(to right, #ff00ff, #9900ff);
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 15px #c44bff;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>🌌 Tes Karakter Donghua  🌌</h1>
+  <form id="tesForm">
+    <label>1. Tujuan hidupmu?</label>
+    <select id="tujuan">
+      <option value="kuat">Menjadi yang terkuat</option>
+      <option value="lindungi">Melindungi yang lemah</option>
+      <option value="kuasai">Menguasai dunia</option>
+      <option value="sembuhkan">Menyembuhkan dunia</option>
+      <option value="cari">Menemukan jati diri</option>
+    </select>
+
+    <label>2. Elemen favoritmu?</label>
+    <select id="elemen">
+      <option>Api</option>
+      <option>Air</option>
+      <option>Petir</option>
+      <option>Angin</option>
+      <option>Tanah</option>
+      <option>Es</option>
+      <option>Cahaya</option>
+      <option>Kegelapan</option>
+    </select>
+
+    <label>3. Cara bertarung favorit?</label>
+    <select id="gaya">
+      <option>Langsung menghajar</option>
+      <option>Strategi dan jebakan</option>
+      <option>Racun dan teknik roh</option>
+      <option>Ramuan dan pil</option>
+    </select>
+
+    <label>4. Sifat dominan?</label>
+    <select id="sifat">
+      <option>Sabar</option>
+      <option>Pemarah</option>
+      <option>Bijak</option>
+      <option>Ambisius</option>
+      <option>Pendiam</option>
+    </select>
+
+    <label>5. Peran favorit?</label>
+    <select id="peran">
+      <option>Frontliner</option>
+      <option>Penyembuh</option>
+      <option>Penyerang jarak jauh</option>
+      <option>Support</option>
+      <option>Solo player</option>
+    </select>
+
+    <button type="submit">🔮 Lihat Karakter Donghua-mu</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("tesForm");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const tujuan = document.getElementById("tujuan").value;
+      const elemen = document.getElementById("elemen").value;
+      const gaya = document.getElementById("gaya").value;
+      const sifat = document.getElementById("sifat").value;
+      const peran = document.getElementById("peran").value;
+
+      const data = {
+        tujuan,
+        elemen,
+        gaya,
+        sifat,
+        peran
+      };
+
+      localStorage.setItem("donghuaKarakter", JSON.stringify(data));
+
+      // Pastikan halaman hasil benar-benar ada dan sesuai nama file
+      window.location.assign("hasil-karakter.html");
+    });
+  </script>
+</body>
+</html>
